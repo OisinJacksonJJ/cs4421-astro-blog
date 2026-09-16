@@ -1,0 +1,71 @@
+---
+interface Props {
+	name: string;
+	bio: string;
+	avatar: string;
+	socialLinks: Array<{ label: string; url: string }>;
+}
+
+const { name, bio, avatar, socialLinks } = Astro.props;
+---
+
+<section class="author-bio" aria-labelledby="author-heading">
+	<img class="author-avatar" src={avatar} alt={`Portrait of ${name}`} width="96" height="96" />
+	<div class="author-details">
+		<p class="author-label" id="author-heading">About the author</p>
+		<h2>{name}</h2>
+		<p>{bio}</p>
+		<nav aria-label={`${name}'s social links`}>
+			<ul class="social-links">
+				{socialLinks.map((link) => (
+					<li><a href={link.url} rel="me" target="_blank">{link.label}</a></li>
+				))}
+			</ul>
+		</nav>
+	</div>
+</section>
+
+<style>
+	.author-bio {
+		display: flex;
+		gap: 1.5rem;
+		align-items: flex-start;
+		margin-top: 4rem;
+		padding-top: 2rem;
+		border-top: 1px solid rgb(var(--gray-light));
+	}
+	.author-avatar {
+		flex: 0 0 auto;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.author-details h2,
+	.author-details p {
+		margin-top: 0;
+	}
+	.author-label {
+		margin-bottom: 0.25rem;
+		color: rgb(var(--gray));
+		font-size: 0.8em;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+	.social-links {
+		display: flex;
+		gap: 1rem;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		font-size: 0.9em;
+	}
+	@media (max-width: 520px) {
+		.author-bio {
+			gap: 1rem;
+		}
+		.author-avatar {
+			width: 72px;
+			height: 72px;
+		}
+	}
+</style>
