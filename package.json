@@ -11,7 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "test:unit":"vitest"
+    "test:unit": "vitest run"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "eslint": "^10.11.0",
-    "eslint-plugin-astro": "^3.2.1"
+    "eslint-plugin-astro": "^3.2.1",
+    "vitest": "^3.0.0"
   }
 }
