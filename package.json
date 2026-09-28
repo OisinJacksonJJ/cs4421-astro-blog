@@ -11,13 +11,15 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "test:unit":"vitest"
+    "test:unit": "vitest"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.3",
+    "aws-cdk-lib": "^2.271.0",
+    "constructs": "^10.8.1",
     "sharp": "^0.35.0",
     "zod": "^4.6.5"
   },
@@ -25,6 +27,7 @@
     "esbuild": true
   },
   "devDependencies": {
+    "aws-cdk": "^2.1143.0",
     "eslint": "^10.11.0",
     "eslint-plugin-astro": "^3.2.1"
   }
