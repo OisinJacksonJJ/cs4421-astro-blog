@@ -1,17 +1,17 @@
 ---
-title: 'Second post'
+title: 'Our Tale Begins'
 description: 'Lorem ipsum dolor sit amet'
 author: oisin-jackson
-pubDate: 'Jul 15 2022'
+pubDate: 'Sep 29 2026'
 heroImage: '../../assets/blog-placeholder-4.jpg'
 ---
 
-Lorere et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Kenny Omega, born as Tyson Smith in October 1983, is one of the worlds most acclaimed wrestlers having won championships across the world since his career debut in 2000. Quickly he began to win matches in local promotions for the next few years, highlights of this time include winning the PCW Heavyweight Championship in 2005 and the PCW Tag Team Championships in 2006.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+Towards the end of 2006 and 2007 while developing his wrestling persona he debuted his soon to be reknowned finisher the "One Winged Angel" where from a sitting position on his shoulders he drives the back of his opponents neck/upper back into the ring canvas. This risky move became unbeatable, finishing every single match he won for many years up until 2012 where his self described "Soul-Mate" Kota Ibushi kicked out of it to sheer astonishment from the crowd as its reputation of being "Unbeatable" was shattered. 
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+As the years went on though, nobody else managed to thwart this move. Over-time the fans of pro wrestling began to discuss how unique it was that only Ibushi had kicked out of the One Winged Angel with many discussing who, if anyone, would be next.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+Towards the end of the 2010's Kenny Omega helped form the company All Elite Wrestling (AEW) which would become synonomous with him as he worked there full time, leaving his typical stomping ground of Japanesse wrestling promotions behind.
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+Curious to read more? Checkout the next  post in the blog "A Challenger Arises"
