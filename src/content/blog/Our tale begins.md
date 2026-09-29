@@ -2,16 +2,16 @@
 title: 'Our Tale Begins'
 description: 'Lorem ipsum dolor sit amet'
 author: oisin-jackson
-pubDate: 'Jul 15 2022'
-heroImage: '../../assets/One-winged.jpg'
+pubDate: 'Sep 29 2026'
+heroImage: '../../assets/omega.jpg'
 ---
 
-This story is between two people: Kenny Omega and Will Ospreay, widely considered to be two of the best to ever do it due to their entertainment value, the shifts they caused in the landscape and their ever growing list of achievements.
+Kenny Omega, born as Tyson Smith in October 1983, is one of the worlds most acclaimed wrestlers having won championships across the world since his career debut in 2000. Quickly he began to win matches in local promotions for the next few years, highlights of this time include winning the PCW Heavyweight Championship in 2005 and the PCW Tag Team Championships in 2006.
 
-But like many of us, their journey started somewhere when they had none of this. Kenny Omega, born October 16th 1983 found his footing in professional wrestling at the early age of 16. Swiftly he began winning championships in local promotions such as PCW, NWA and TNA due to his natural talent at the entertainment medium. During 2006 as he was developing his wrestling persona he debuted his soon to be reknowned finisher the "One Winged Angel", where from a sitting position on his shoulders, he drives his opponent down into the ring canvas onto their upper back and lower neck.
+Towards the end of 2006 and 2007 while developing his wrestling persona he debuted his soon to be reknowned finisher the "One Winged Angel" where from a sitting position on his shoulders he drives the back of his opponents neck/upper back into the ring canvas. This risky move became unbeatable, finishing every single match he won for many years up until 2012 where his self described "Soul-Mate" Kota Ibushi kicked out of it to sheer astonishment from the crowd as its reputation of being "Unbeatable" was shattered. 
 
-Time and time again this finisher proved successful, with it winning the match every single time it was successfully hit. As the years went on and its success continued many wondered who would finally power through it? 
+As the years went on though, nobody else managed to thwart this move. Over-time the fans of pro wrestling began to discuss how unique it was that only Ibushi had kicked out of the One Winged Angel with many discussing who, if anyone, would be next.
 
-This question would be answered in 2012 when Omega's self described "Soulmate" Kota Ibushi kicked out of the One Winged Angel causing absolute shock and disbelief that something such as this occured. This fact became heavily symbolic to both how significant of a move it had become and the importance it gave to anyone who was allowed to kick out of it.
+Towards the end of the 2010's Kenny Omega helped form the company All Elite Wrestling (AEW) which would become synonomous with him as he worked there full time, leaving his typical stomping ground of Japanesse wrestling promotions behind.
 
-Interested in reading more? View the next post in this series: "A challenger arises"
+Curious to read more? Checkout the next  post in the blog "A Challenger Arises"

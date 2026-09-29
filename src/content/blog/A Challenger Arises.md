@@ -1,16 +1,12 @@
 ---
 title: 'A Challenger Arises'
-description: 'Lorem ipsum dolor sit amet'
+description: 'The next chapter in the story begins.'
 author: oisin-jackson
-pubDate: 'Jul 15 2022'
-heroImage: '../../assets/faceoff.jpg'
+pubDate: 'Sep 20 2026'
+heroImage: '../../assets/Ospreay.png'
 ---
-The other individual of this tale, Will Ospreay comes into the narrative much later haven been born on the 7th May 1993. Like Omega he started off at the age of 16, debuting in local UK promotion Lucha Britannia where he won their world championship twice.
+Will Ospreay, born in May 1993, is the current AEW World Champion and one of the largest names currently wrestling today. Having debuted in Lucha Britannia in 2012 he followed in a similar pathway to Kenny Omega having wrestled in local promotions, winning titles and the success growing from there. Also like Kenny Omega, he began working in Japan during the 2010's under the company New Japan Pro Wrestling (NJPW). When he first started, Kenny Omega was on the top of his game having classic after classic matchup with other big names such as Kazudika Okada, Tetsuya Naito and Kota Ibushi while Will Ospreay was on the bottom of the card.
 
-For several years Will Ospreay remained in the UK independent wrestling scene, while across the world Kenny Omega was getting an international reputation for his extremely high quality of work. In a similar path, Will Ospreay was signed by Japan's flagship company NJPW in 2016 where Kenny Omega was also working. During this time the duo never met as Will Ospreay worked the under-card and mid-card of most shows while Kenny Omega was in the main event scene consistently.
+Between 2017-2019 Ospreay began to pick up momentum, participating in the Best Of the Super Juniors tournament where he became it's youngest winner in history. Just before Ospreay was about to enter the main event scene where he would've no doubt faced Kenny Omega, Kenny departed to form AEW leaving a large gap in the main event scene. Ospreay quickly filled his shoes but drew many comparisons between himself and Omega with many calling him "lesser than" and only in the place he was in "Because Omega left". This grew tension between the duo as the Covid-19 Pandemic kept them seperated, but when restrictions eased up in 2024 this tension would boil over in a nasty way.
 
-However, as Ospreay was beginning to get to that presitigious main event level, Kenny Omega moved back to America to form All Elite Wrestling (AEW), one of the worlds largest wrestling promotions. Many began to speculate what a match between the duo would look like but as the Covid-19 pandemic struck the world in 2020 this dream matchup seemed impossible. 
-
-During this time, Kenny Omega's absence from NJPW was felt with many looking towards Will Ospreay to fill in Omegas shoes, this led to endless comparison between the duo with many deeming Ospreay to be the lesser of the two, only in the spot he was in due to Omega leaving. This ever-growing tension would reach its climax soon, and was going to boil over in a violent way.
-
-Interested in continuing? Checkout the next post in this series "The Prior Faceoffs"
+Curious to see what happens next? Check out the next post in this blog "The Prior Faceoffs"
