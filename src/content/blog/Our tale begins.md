@@ -3,7 +3,7 @@ title: 'Our Tale Begins'
 description: 'Lorem ipsum dolor sit amet'
 author: oisin-jackson
 pubDate: 'Sep 29 2026'
-heroImage: '../../assets/blog-placeholder-4.jpg'
+heroImage: '../../assets/omega.jpg'
 ---
 
 Kenny Omega, born as Tyson Smith in October 1983, is one of the worlds most acclaimed wrestlers having won championships across the world since his career debut in 2000. Quickly he began to win matches in local promotions for the next few years, highlights of this time include winning the PCW Heavyweight Championship in 2005 and the PCW Tag Team Championships in 2006.
