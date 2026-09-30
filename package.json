@@ -21,7 +21,7 @@
     "astro": "^7.3.3",
     "aws-cdk-lib": "^2.271.0",
     "constructs": "^10.8.1",
-    "sharp": "^0.35.0",
+    "sharp": "^0.35.5",
     "zod": "^4.6.5"
   },
   "allowScripts": {
