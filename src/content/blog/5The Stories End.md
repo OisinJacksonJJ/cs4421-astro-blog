@@ -2,7 +2,7 @@
 title: 'The Story Ends'
 description: 'The conclusion of the story.'
 author: oisin-jackson
-pubDate: 'Sep 21 2026'
+pubDate: 'Sep 26 2026'
 heroImage: '../../assets/kickout.png'
 ---
 The build-up to All In 2026 was confusing for most fans. Plans seemed to consistently change with involvement from the Death Riders, a group Will Ospreay was apart of, and heavy speculation over who would be a good guy and who would be a bad guy during the match as most fans outside the UK saw Ospreay as the bad guy and Omega as the good guy but fans within the UK (Where the event was happening) viewed it the other way around. 

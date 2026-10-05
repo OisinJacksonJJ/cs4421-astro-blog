@@ -2,7 +2,7 @@
 title: 'The Prior Faceoffs'
 description: 'Lorem ipsum dolor sit amet'
 author: oisin-jackson
-pubDate: 'Sep 29 2026'
+pubDate: 'Sep 27 2026'
 heroImage: '../../assets/faceoff.jpg'
 ---
 The duo was set to meet at Wrestle Kingdom 17 in 2024, Japans largest wrestling show of the year. The match that unfolded is regarded as one of the best in wrestling history, lasting well over 30 minutes and had the crowd mesmerised by the fight unfolding before them. Ultimately, Will Ospreay was defeated by the One Winged Angel, causing many to continue to deem Ospreay as the "Lesser Than".

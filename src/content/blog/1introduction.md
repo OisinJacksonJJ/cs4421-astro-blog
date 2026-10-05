@@ -2,7 +2,7 @@
 title: 'The beauty of a kickout'
 description: 'An introduction of what a kickout is'
 author: oisin-jackson
-pubDate: 'Sep 19 2026'
+pubDate: 'Sep 31 2026'
 heroImage: '../../assets/Kickout.jpg'
 ---
 

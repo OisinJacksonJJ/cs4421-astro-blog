@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import defaultLeftImage from '../assets/omega.jpg';
+import defaultRightImage from '../assets/Ospreay.png';
+
+const sidebar = await getEntry('sidebars', 'main');
+
+if (!sidebar) {
+	throw new Error('Missing sidebar content at src/content/sidebars/main.md');
+}
+
+---
+
+<main class="page-layout">
+	<div class="page-content">
+		<slot />
+	</div>
+	<Image
+		class="side-image side-image-left"
+		src={sidebar.data.leftImage ?? defaultLeftImage}
+		alt={sidebar.data.leftImageAlt ?? ''}
+	/>
+	<Image
+		class="side-image side-image-right"
+		src={sidebar.data.rightImage ?? defaultRightImage}
+		alt={sidebar.data.rightImageAlt ?? ''}
+	/>
+</main>
+
+<style>
+	.page-layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		align-items: start;
+		width: min(960px, calc(100% - 2em));
+		max-width: none;
+		margin: 0 auto;
+		padding: 3em 1em;
+	}
+	.page-content {
+		min-width: 0;
+	}
+	.side-image {
+		position: fixed;
+		top: 50%;
+		z-index: 0;
+		width: min(8vw, 110px);
+		max-height: 70vh;
+		object-fit: contain;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+	.side-image-left {
+		left: max(12px, calc((100vw - 1400px) / 2));
+	}
+	.side-image-right {
+		right: max(12px, calc((100vw - 1400px) / 2));
+	}
+	@media (max-width: 800px) {
+		.page-layout {
+			padding: 1em;
+		}
+	}
+	@media (min-width: 1200px) {
+		.page-layout {
+			width: min(1120px, calc(100vw - 260px));
+		}
+	}
+	@media (max-width: 1199px) {
+		.side-image {
+			display: none;
+		}
+	}
+</style>

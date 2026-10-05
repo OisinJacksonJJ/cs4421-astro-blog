@@ -2,7 +2,7 @@
 title: 'A Challenger Arises'
 description: 'The next chapter in the story begins.'
 author: oisin-jackson
-pubDate: 'Sep 20 2026'
+pubDate: 'Sep 28 2026'
 heroImage: '../../assets/Ospreay.png'
 ---
 Will Ospreay, born in May 1993, is the current AEW World Champion and one of the largest names currently wrestling today. Having debuted in Lucha Britannia in 2012 he followed in a similar pathway to Kenny Omega having wrestled in local promotions, winning titles and the success growing from there. Also like Kenny Omega, he began working in Japan during the 2010's under the company New Japan Pro Wrestling (NJPW). When he first started, Kenny Omega was on the top of his game having classic after classic matchup with other big names such as Kazudika Okada, Tetsuya Naito and Kota Ibushi while Will Ospreay was on the bottom of the card.
