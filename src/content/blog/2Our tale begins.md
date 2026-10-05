@@ -2,7 +2,7 @@
 title: 'Our Tale Begins'
 description: 'Lorem ipsum dolor sit amet'
 author: oisin-jackson
-pubDate: 'Sep 29 2026'
+pubDate: 'Sep 30 2026'
 heroImage: '../../assets/omega.jpg'
 ---
 

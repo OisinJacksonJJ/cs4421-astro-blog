@@ -33,4 +33,15 @@ const authors = defineCollection({
 	}),
 });
 
-export const collections = { blog, authors };
+const sidebars = defineCollection({
+	loader: glob({ base: './src/content/sidebars', pattern: '**/*.md' }),
+	schema: ({ image }) =>
+		z.object({
+			leftImage: image(),
+			leftImageAlt: z.string(),
+			rightImage: image(),
+			rightImageAlt: z.string(),
+		}),
+});
+
+export const collections = { blog, authors, sidebars };
