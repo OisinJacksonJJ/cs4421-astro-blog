@@ -31,7 +31,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "aws-cdk": "^2.1143.0",
-    "eslint": "^10.11.0",
+    "eslint": "^10.12.0",
     "eslint-plugin-astro": "^3.2.1",
     "typescript": "^6.0.3",
     "vitest": "^5.0.2"
