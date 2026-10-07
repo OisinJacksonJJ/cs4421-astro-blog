@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "test:unit": "vitest"
+    "test:unit": "vitest",
+    "check": "tsc --noEmit" 
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
