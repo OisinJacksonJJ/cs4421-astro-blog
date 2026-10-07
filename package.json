@@ -12,7 +12,7 @@
     "astro": "astro",
     "lint": "eslint",
     "test:unit": "vitest",
-    "check": "tsc --noEmit" 
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
@@ -29,9 +29,11 @@
     "esbuild": true
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "aws-cdk": "^2.1143.0",
     "eslint": "^10.11.0",
     "eslint-plugin-astro": "^3.2.1",
+    "typescript": "^6.0.3",
     "vitest": "^5.0.2"
   }
 }
