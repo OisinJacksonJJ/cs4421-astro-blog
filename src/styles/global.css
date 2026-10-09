@@ -4,6 +4,14 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+@font-face {
+	font-family: 'Oswald';
+	src: url('../assets/fonts/oswald-variable.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+}
+
 :root {
 	--accent: #a63720;
 	--accent-dark: #762312;
@@ -46,6 +54,7 @@ h5,
 h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
+	font-family: 'Oswald', sans-serif;
 	line-height: 1.2;
 }
 h1 {
