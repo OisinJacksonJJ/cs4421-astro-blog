@@ -67,6 +67,17 @@ if (!sidebar) {
 			width: min(1120px, calc(100vw - 260px));
 		}
 	}
+	@media (min-width: 1440px) {
+		.side-image {
+			width: min(180px, calc((100vw - 1152px) / 2 - 44px));
+		}
+		.side-image-left {
+			left: 24px;
+		}
+		.side-image-right {
+			right: 24px;
+		}
+	}
 	@media (max-width: 1199px) {
 		.side-image {
 			display: none;

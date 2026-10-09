@@ -1,6 +1,6 @@
 ---
-leftImage: '../../assets/omega.jpg'
+leftImage: '../../assets/longkenny.jpg'
 leftImageAlt: Kenny Omega in the ring
-rightImage: '../../assets/Ospreay.png'
+rightImage: '../../assets/tallospreay.png'
 rightImageAlt: Will Ospreay holding the Union Jack
 ---
