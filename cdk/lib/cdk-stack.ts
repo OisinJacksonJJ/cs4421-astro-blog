@@ -23,3 +23,20 @@ export class StaticSiteStack extends cdk.Stack {
     });
   }
 }
+
+export class ExistingBucketDeploymentStack extends cdk.Stack {
+  constructor(
+    scope: cdk.App,
+    id: string,
+    bucketName: string,
+    props?: cdk.StackProps,
+  ) {
+    super(scope, id, props);
+
+    const siteBucket = s3.Bucket.fromBucketName(this, 'SiteBucket', bucketName);
+    new s3deploy.BucketDeployment(this, 'DeploySite', {
+      sources: [s3deploy.Source.asset('./../dist')],
+      destinationBucket: siteBucket,
+    });
+  }
+}
