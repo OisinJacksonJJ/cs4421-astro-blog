@@ -54,6 +54,24 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## Server deployment
+
+The application uses Astro's Node standalone adapter and requires Node.js
+22.12 or newer. Build and run the server with:
+
+```sh
+npm run build
+node ./dist/server/entry.mjs
+```
+
+The server listens on port `4321` by default. `GET /api/health` returns a
+JSON health response, and each incoming request is logged as a JSON line to
+the server terminal.
+
+The existing S3 static-website deployment is not compatible with server
+output. Deploy the Docker image to a container runtime to serve dynamic routes;
+the Dockerfile includes a health check for `/api/health`.
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
