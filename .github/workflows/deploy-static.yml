@@ -1,7 +1,6 @@
 name: Deploy Static Site via AWS CDK
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -17,6 +16,12 @@ jobs:
         run: npm ci
       - name: Build Astro Static Site
         run: npm run build
+      - name: Verify static build output
+        run: |
+          if [ ! -f dist/index.html ]; then
+            echo "This project currently builds SSR output; refusing to deploy it to the static S3 bucket." >&2
+            exit 1
+          fi
       - name: Install CDK Dependencies
         run: npm ci --prefix cdk
       - name: Configure AWS Credentials

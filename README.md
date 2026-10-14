@@ -54,6 +54,34 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
+## Server deployment
+
+The application uses Astro's Node standalone adapter and requires Node.js
+22.12 or newer. Build and run the server with:
+
+```sh
+npm run build
+node ./dist/server/entry.mjs
+```
+
+The server listens on port `4321` by default. `GET /api/health` returns a
+JSON health response, and each incoming request is logged as a JSON line to
+the server terminal.
+
+The existing S3 static-website deployment is not compatible with server
+output. Deploy the Docker image to a container runtime to serve dynamic routes;
+the Dockerfile includes a health check for `/api/health`. The legacy S3/CDK
+workflow is manual-only and refuses to deploy unless a static `dist/index.html`
+exists, so it cannot accidentally replace the hosted static site with an SSR
+build.
+
+To publish the `v1.0.0` image to Amazon ECR, run the **Build and push
+container to ECR** workflow manually from the GitHub Actions tab. It creates
+the `astro-blog` ECR repository in `us-east-1` if needed, then builds and pushes
+the image. The repository's `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
+GitHub Actions secrets must be authorized to create an ECR repository and push
+images.
+
 ## 👀 Want to learn more?
 
 Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
