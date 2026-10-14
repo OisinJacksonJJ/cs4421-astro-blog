@@ -70,7 +70,10 @@ the server terminal.
 
 The existing S3 static-website deployment is not compatible with server
 output. Deploy the Docker image to a container runtime to serve dynamic routes;
-the Dockerfile includes a health check for `/api/health`.
+the Dockerfile includes a health check for `/api/health`. The legacy S3/CDK
+workflow is manual-only and refuses to deploy unless a static `dist/index.html`
+exists, so it cannot accidentally replace the hosted static site with an SSR
+build.
 
 To publish the `v1.0.0` image to Amazon ECR, run the **Build and push
 container to ECR** workflow manually from the GitHub Actions tab. It creates
