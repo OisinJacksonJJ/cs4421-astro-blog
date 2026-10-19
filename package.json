@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "test:unit": "vitest",
+    "test:unit": "vitest src",
+    "test:e2e": "npm run build && vitest --run tests/e2e/blog-navigation.test.ts",
     "check": "astro check"
   },
   "dependencies": {

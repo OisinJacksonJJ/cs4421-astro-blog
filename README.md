@@ -44,12 +44,19 @@ Run these commands from the repository root:
 | `npm run check` | Run Astro's project and TypeScript checks. |
 | `npm run lint` | Run ESLint. |
 | `npm run test:unit -- --run` | Run the unit tests once. |
+| `npm run test:e2e` | Build and verify that stories link to every blog post. |
 | `npm run build` | Build the production server into `dist/`. |
 | `npm run preview` | Preview the built site locally. |
 | `node ./dist/server/entry.mjs` | Run the built standalone Node.js server. |
 
 Pull requests targeting `main` run the CI workflow, which installs dependencies
 with `npm ci` and verifies the production build with `npm run build`.
+
+The unit tests check that each Markdown blog post contains at least 50
+alphabetic words in its article body, excluding frontmatter. The E2E test
+builds the site, starts the standalone server, checks that each post is listed
+on `/blog/`, and requests each linked post page to verify that its title is
+rendered. Run the unit tests and E2E test separately with the commands above.
 
 To run the production server locally, build first:
 
