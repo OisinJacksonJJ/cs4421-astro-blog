@@ -1,91 +1,112 @@
-# Astro Starter Kit: Blog
+# What's in a Kickout?
+
+What's in a Kickout? is an Astro-powered wrestling blog. It uses Astro's Node.js
+standalone adapter to run as a server-rendered application, with article content
+managed in the repository.
+
+## Prerequisites
+
+For local development, install:
+
+- [Node.js](https://nodejs.org/) 22.12.0 or newer.
+- npm, which is included with Node.js.
+- Git, to clone the repository.
+
+No environment variables, AWS account, or external services are required to run
+the site locally.
+
+Docker is optional and is only needed to build and run the production container.
+AWS credentials are only needed for the manual GitHub Actions workflow that
+publishes the container image to Amazon ECR.
+
+## Getting started
+
+Clone the repository, install the locked dependencies, and start the development
+server:
 
 ```sh
-npm create astro@latest -- --template blog
+git clone https://github.com/OisinJacksonJJ/cs4421-astro-blog.git
+cd cs4421-astro-blog
+npm ci
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open the local URL printed by Astro (by default, <http://localhost:4321>). The
+development server reloads the site as files change.
 
-Features:
+## Common commands
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+Run these commands from the repository root:
 
-## 🚀 Project Structure
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the local development server. |
+| `npm run check` | Run Astro's project and TypeScript checks. |
+| `npm run lint` | Run ESLint. |
+| `npm run test:unit -- --run` | Run the unit tests once. |
+| `npm run build` | Build the production server into `dist/`. |
+| `npm run preview` | Preview the built site locally. |
+| `node ./dist/server/entry.mjs` | Run the built standalone Node.js server. |
 
-Inside of your Astro project, you'll see the following folders and files:
+Pull requests targeting `main` run the CI workflow, which installs dependencies
+with `npm ci` and verifies the production build with `npm run build`.
 
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## Server deployment
-
-The application uses Astro's Node standalone adapter and requires Node.js
-22.12 or newer. Build and run the server with:
+To run the production server locally, build first:
 
 ```sh
 npm run build
 node ./dist/server/entry.mjs
 ```
 
-The server listens on port `4321` by default. `GET /api/health` returns a
-JSON health response, and each incoming request is logged as a JSON line to
-the server terminal.
+The server uses port `4321` by default. The health endpoints are:
 
-The existing S3 static-website deployment is not compatible with server
-output. Deploy the Docker image to a container runtime to serve dynamic routes;
-the Dockerfile includes a health check for `/api/health`. The legacy S3/CDK
-workflow is manual-only and refuses to deploy unless a static `dist/index.html`
-exists, so it cannot accidentally replace the hosted static site with an SSR
-build.
+- `GET /api/health` — overall process health, including uptime.
+- `GET /api/live` — liveness check.
+- `GET /api/ready` — readiness check.
 
-To publish the `v1.0.0` image to Amazon ECR, run the **Build and push
-container to ECR** workflow manually from the GitHub Actions tab. It creates
-the `astro-blog` ECR repository in `us-east-1` if needed, then builds and pushes
-the image. The repository's `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`
-GitHub Actions secrets must be authorized to create an ECR repository and push
-images.
+## Project layout
 
-## 👀 Want to learn more?
+```text
+src/
+  components/   Shared Astro components
+  content/      Blog posts, authors, and sidebar content
+  layouts/      Page and blog post layouts
+  pages/        Site routes and API endpoints
+  styles/       Global styles
+public/         Static files served without processing
+docs/           Architecture decisions
+cdk/            Legacy AWS CDK infrastructure project
+```
 
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Add or edit blog content under `src/content/`. Pages and API routes live under
+`src/pages/`; Astro maps files in this directory to URL routes.
 
-## Credit
+## Production container
 
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+The root `Dockerfile` builds the Astro server and runs it in a Node.js 22 Alpine
+container. With Docker installed, build and run the image with:
+
+```sh
+docker build -t whats-in-a-kickout .
+docker run --rm -p 4321:4321 whats-in-a-kickout
+```
+
+The container listens on port `4321` and checks `/api/health` for its Docker
+health check.
+
+The **Build and push container to ECR** GitHub Actions workflow is manually
+triggered. It builds the image and pushes it to the `astro-blog` repository in
+Amazon ECR in `us-east-1`. Running this workflow requires the repository secrets
+`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, with AWS permissions to verify
+the configured account and create or push to the ECR repository. It currently
+publishes the image with the `v1.0.0` tag. The workflow publishes an image;
+provisioning and running a container service is outside its scope.
+
+The `cdk/` directory and **Deploy Static Site via AWS CDK** workflow are a
+legacy static-site deployment path. The application now produces server output,
+so that workflow deliberately stops rather than deploying the SSR build to S3.
+
+## Further documentation
+
+- [Astro documentation](https://docs.astro.build/)
+- [Architecture decision: SSR and containers](docs/adr/ADR-001-transition-to-ssr-and-containers.md)
