@@ -71,6 +71,15 @@ The server uses port `4321` by default. The health endpoints are:
 - `GET /api/live` — liveness check.
 - `GET /api/ready` — readiness check.
 
+The server writes one JSON object per line to standard output for each HTTP
+request. Records include an ISO timestamp, a level (`info`, `warn`, or `error`),
+the request method and path, response status, and duration. Unhandled request
+exceptions also produce a `fatal` JSON record with error details. Clicks on
+links/buttons and form submissions produce `action` records through
+`POST /api/logs/action`; only the action type, page path, and element type are
+recorded, not form contents or visible text. Invalid requests receive warning
+request records, and HTTP 5xx responses receive error-level request records.
+
 ## Project layout
 
 ```text

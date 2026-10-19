@@ -50,3 +50,50 @@ const { title, description, image = FallbackImage } = Astro.props;
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
+
+<script>
+	const actionEndpoint = '/api/logs/action';
+
+	function logAction(action: 'click' | 'submit', target: string) {
+		const payload = JSON.stringify({
+			action,
+			path: window.location.pathname,
+			target,
+		});
+		const body = new Blob([payload], { type: 'application/json' });
+
+		if (!navigator.sendBeacon(actionEndpoint, body)) {
+			void fetch(actionEndpoint, {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: payload,
+				keepalive: true,
+			}).catch((error: unknown) => {
+				console.warn(
+					JSON.stringify({
+						timestamp: new Date().toISOString(),
+						level: 'warn',
+						event: 'action_log_delivery_failed',
+						message: error instanceof Error ? error.message : String(error),
+					}),
+				);
+			});
+		}
+	}
+
+	document.addEventListener('click', (event) => {
+		if (!(event.target instanceof Element)) return;
+		const target = event.target.closest(
+			'a, button, [role="button"], input[type="button"], input[type="submit"]',
+		);
+		if (!target) return;
+
+		logAction('click', target.matches('[role="button"]') ? 'role=button' : target.tagName);
+	});
+
+	document.addEventListener('submit', (event) => {
+		if (event.target instanceof HTMLFormElement) {
+			logAction('submit', 'FORM');
+		}
+	});
+</script>

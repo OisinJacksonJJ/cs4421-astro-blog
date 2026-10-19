@@ -95,6 +95,31 @@ async function waitForServer(): Promise<void> {
 	);
 }
 
+async function waitForLog(
+	event: string,
+	level: string,
+	path: string,
+): Promise<Record<string, unknown>> {
+	const deadline = Date.now() + 5_000;
+
+	while (Date.now() < deadline) {
+		for (const line of serverOutput.split(/\r?\n/)) {
+			try {
+				const record = JSON.parse(line) as Record<string, unknown>;
+				if (record.event === event && record.level === level && record.path === path) {
+					return record;
+				}
+			} catch {
+				// Ignore incomplete or non-JSON server output while waiting for the log record.
+			}
+		}
+
+		await new Promise((resolve) => setTimeout(resolve, 25));
+	}
+
+	throw new Error(`Timed out waiting for ${level} ${event} JSON log for ${path}.\n${serverOutput}`);
+}
+
 describe('blog navigation E2E', () => {
 	beforeAll(async () => {
 		const port = await reservePort();
@@ -149,5 +174,32 @@ describe('blog navigation E2E', () => {
 			expect(postResponse.status, `${href} should open successfully`).toBe(200);
 			expect(headingText(postResponse.body, 'h1')).toBe(title);
 		}
+	});
+
+	it('writes visible JSON request, warning, and action logs', async () => {
+		const healthResponse = await getPage(new URL('/api/ready', baseUrl));
+		expect(healthResponse.status).toBe(200);
+		const requestRecord = await waitForLog('http_request', 'info', '/api/ready');
+		expect(requestRecord.status).toBe(200);
+
+		const invalidResponse = await fetch(new URL('/api/logs/action', baseUrl), {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ action: 'click', path: '/?private=value', target: 'A' }),
+		});
+		expect(invalidResponse.status).toBe(400);
+		await waitForLog('http_request', 'warn', '/api/logs/action');
+
+		const actionResponse = await fetch(new URL('/api/logs/action', baseUrl), {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ action: 'click', path: '/blog/example/', target: 'A' }),
+		});
+		expect(actionResponse.status).toBe(204);
+		const actionRecord = await waitForLog('user_action', 'action', '/blog/example/');
+		expect(actionRecord).toMatchObject({
+			action: 'click',
+			target: 'A',
+		});
 	});
 });
