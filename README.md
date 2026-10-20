@@ -53,8 +53,8 @@ Run these commands from the repository root:
 Pull requests targeting `main` and pushes to `main` run the CI workflow. It
 checks, tests, builds the Astro site and container image, runs its end-to-end
 tests, and builds, tests, and synthesizes the AWS CDK project without requiring
-AWS credentials. After both validation jobs pass on a push to `main`, the
-deployment job updates the ECS service.
+AWS credentials. The workflow validates CDK templates only; it does not deploy
+or create AWS resources.
 
 The unit tests check that each Markdown blog post contains at least 50
 alphabetic words in its article body, excluding frontmatter. The E2E test
@@ -95,7 +95,7 @@ src/
   styles/       Global styles
 public/         Static files served without processing
 docs/           Architecture decisions
-cdk/            AWS CDK infrastructure (legacy static site and ECS service)
+cdk/            Legacy AWS CDK static-site infrastructure
 ```
 
 Add or edit blog content under `src/content/`. Pages and API routes live under
@@ -114,52 +114,11 @@ docker run --rm -p 4321:4321 whats-in-a-kickout
 The container listens on port `4321` and checks `/api/health` for its Docker
 health check.
 
-The **Build and push container to ECR** workflow remains available as a manual
-image-publishing option. It pushes the image to the `astro-blog` repository in
-Amazon ECR in `us-east-1` with the `v1.0.0` tag. The automated ECS deployment
-builds the image from the repository as a CDK asset instead.
-
-### ECS/Fargate deployment
-
-The `ContainerServiceStack` CDK stack creates a VPC with public subnets, an ECS
-cluster, one Fargate task, and an internet-facing Application Load Balancer.
-The service uses the container health endpoint `/api/ready`; the stack outputs
-the cluster name, service name, and HTTP load-balancer URL. Tasks run in public
-subnets with public IPs, so the stack does not create NAT gateways. The public
-load balancer and Fargate task incur ongoing AWS charges. The generated URL is
-HTTP; configure a domain and TLS certificate before using a custom production
-domain.
-
-Before the first deployment:
-
-1. Confirm that AWS account `098689768734` in `us-east-1` is the intended
-   account. The CDK app is currently configured for this account and region.
-2. Configure local AWS credentials with permission to bootstrap CDK and create
-   the VPC, ECS, IAM, load-balancing, logging, and asset resources.
-3. Build the site (the CDK app also synthesizes the legacy static-site stack),
-   install CDK dependencies, and bootstrap the account's CDK environment:
-
-   ```sh
-   npm ci
-   npm run build
-   cd cdk
-   npm ci
-   npm run build
-   npx cdk bootstrap aws://098689768734/us-east-1
-   ```
-
-4. Review and deploy the service stack:
-
-   ```sh
-   npx cdk diff ContainerServiceStack
-   npx cdk deploy ContainerServiceStack --require-approval never
-   ```
-
-The deployment job runs automatically after CI passes on pushes to `main`. It
-requires the repository secrets `AWS_ACCESS_KEY_ID` and
-`AWS_SECRET_ACCESS_KEY`, with AWS permissions to verify the account, publish CDK
-assets, and deploy the `ContainerServiceStack`. No AWS resources are created by
-the local CI checks or by synthesizing the stack.
+The **Build and push container to ECR** workflow remains manual. If run, it
+publishes an image to the `astro-blog` repository in Amazon ECR in `us-east-1`
+with the `v1.0.0` tag; ECR storage may incur charges. CI does not publish the
+image or deploy AWS services. The static-site CDK deployment workflow also
+remains manual and deliberately stops because the application builds as SSR.
 
 The legacy S3/CloudFront stack and **Deploy Static Site via AWS CDK** workflow
 are a static-site deployment path. The application now produces server output,
@@ -169,4 +128,3 @@ so that workflow deliberately stops rather than deploying the SSR build to S3.
 
 - [Astro documentation](https://docs.astro.build/)
 - [Architecture decision: SSR and containers](docs/adr/ADR-001-transition-to-ssr-and-containers.md)
-- [Architecture decision: ECS/Fargate deployment](docs/adr/ADR-002-ecs-fargate-deployment.md)

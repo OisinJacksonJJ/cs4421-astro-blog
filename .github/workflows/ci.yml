@@ -1,4 +1,4 @@
-name: Continuous Integration and Deployment
+name: Continuous Integration
 
 on:
   pull_request:
@@ -80,61 +80,3 @@ jobs:
 
       - name: Synthesize CloudFormation Templates
         run: npx cdk synth
-
-  deploy-ecs:
-    needs:
-      - validate-site
-      - validate-cdk
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
-    concurrency:
-      group: ecs-production-deploy
-      cancel-in-progress: false
-    env:
-      AWS_REGION: us-east-1
-      AWS_ACCOUNT_ID: '098689768734'
-    steps:
-      - name: Checkout Source Code
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js Runtime
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.12.0
-          cache: npm
-          cache-dependency-path: |
-            package-lock.json
-            cdk/package-lock.json
-
-      - name: Install Site Dependencies
-        run: npm ci
-
-      - name: Build Site Assets for CDK Synthesis
-        run: npm run build
-
-      - name: Install CDK Dependencies
-        run: npm ci
-        working-directory: cdk
-
-      - name: Build CDK TypeScript
-        run: npm run build
-        working-directory: cdk
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Verify AWS Account
-        run: |
-          actual_account_id="$(aws sts get-caller-identity --query Account --output text)"
-          if [ "$actual_account_id" != "$AWS_ACCOUNT_ID" ]; then
-            echo "Configured credentials target account $actual_account_id, not $AWS_ACCOUNT_ID" >&2
-            exit 1
-          fi
-
-      - name: Deploy ECS Service
-        run: npx cdk deploy ContainerServiceStack --require-approval never
-        working-directory: cdk

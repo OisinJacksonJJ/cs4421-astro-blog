@@ -1,14 +1,11 @@
 # AWS CDK infrastructure
 
-This project contains the legacy static-site deployment stack and the
-`ContainerServiceStack` for running the Astro SSR application on ECS/Fargate
-behind an Application Load Balancer. The legacy static-site stack is pinned to
-AWS account `098689768734` in `us-east-1`. The container stack uses the active
-CDK deployment environment; the GitHub deployment job verifies that it targets
-account `098689768734` in `us-east-1`.
+This project contains the legacy static-site deployment stacks. They target
+AWS account `098689768734` in `us-east-1`. CI builds and synthesizes the stacks
+but does not deploy them or create AWS resources.
 
-The CDK app also synthesizes the legacy static-site stack, so build the Astro
-site from the repository root before synthesizing or deploying:
+The CDK app packages the Astro build as a static-site asset, so build the site
+from the repository root before synthesizing:
 
 ```sh
 cd ..
@@ -23,14 +20,6 @@ npm ci
 * `npm run build`   type-check the CDK project
 * `npm test`        run CDK template assertions
 * `npx cdk synth`   synthesize all CDK stacks without deploying
-* `npx cdk diff ContainerServiceStack`   compare the ECS stack with AWS
-* `npx cdk deploy ContainerServiceStack --require-approval never`   deploy the ECS stack
-
-The AWS account must be bootstrapped once before the first deployment:
-
-```sh
-npx cdk bootstrap aws://098689768734/us-east-1
-```
-
-Deploying creates billable AWS resources. See the repository README for the
-GitHub Actions deployment requirements and architecture details.
+The `npx cdk synth` and CI validation commands do not require AWS credentials
+and do not create billable AWS resources. Deploying the legacy stacks is not
+part of CI.
