@@ -4,6 +4,7 @@ import {
   ExistingBucketDeploymentStack,
   StaticSiteStack,
 } from '../lib/cdk-stack';
+import { ContainerServiceStack } from '../lib/container-service-stack';
 
 const app = new cdk.App();
 const env = { account: '098689768734', region: 'us-east-1' };
@@ -22,6 +23,13 @@ new StaticSiteStack(app, 'CdkStack', {
   env,
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+});
+
+new ContainerServiceStack(app, 'ContainerServiceStack', {
+  env: {
+    account: process.env.CDK_DEFAULT_ACCOUNT,
+    region: process.env.CDK_DEFAULT_REGION,
+  },
 });
 
 const siteBucketName = app.node.tryGetContext('siteBucketName');
