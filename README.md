@@ -13,12 +13,12 @@ For local development, install:
 - Git, to clone the repository.
 
 No environment variables, AWS account, or external services are required to run
-the site locally. AWS access is required only to provision or deploy the ECS
-service, or to run the optional manual image-publishing workflow.
+the site locally. AWS access is required to publish the production container
+image or to provision or deploy the ECS service.
 
 Docker is optional and is only needed to build and run the production container.
-AWS credentials are only needed for the manual GitHub Actions workflow that
-publishes the container image to Amazon ECR.
+AWS credentials are only needed by GitHub Actions to publish the container
+image to Amazon ECR when changes are pushed to `main`.
 
 ## Getting started
 
@@ -52,9 +52,12 @@ Run these commands from the repository root:
 
 Pull requests targeting `main` and pushes to `main` run the CI workflow. It
 checks, tests, builds the Astro site and container image, runs its end-to-end
-tests, and builds, tests, and synthesizes the AWS CDK project without requiring
-AWS credentials. The workflow validates CDK templates only; it does not deploy
-or create AWS resources.
+tests, and builds, tests, and synthesizes the AWS CDK project. After all checks
+pass on a push to `main`, the workflow authenticates to AWS, publishes the
+container image to the `astro-blog` repository in Amazon ECR in `us-east-1`,
+and tags it with the commit SHA. Pull requests do not publish images or require
+AWS credentials. Publishing the image does not deploy or update a running AWS
+service.
 
 The unit tests check that each Markdown blog post contains at least 50
 alphabetic words in its article body, excluding frontmatter. The E2E test
@@ -118,11 +121,9 @@ docker run --rm -p 4321:4321 whats-in-a-kickout
 The container listens on port `4321` and checks `/api/health` for its Docker
 health check.
 
-The **Build and push container to ECR** workflow remains manual. If run, it
-publishes an image to the `astro-blog` repository in Amazon ECR in `us-east-1`
-with the `v1.0.0` tag; ECR storage may incur charges. CI does not publish the
-image or deploy AWS services. The static-site CDK deployment workflow also
-remains manual and deliberately stops because the application builds as SSR.
+ECR stores an image for each successful push to `main`; storage may incur
+charges. The static-site CDK deployment workflow remains manual and
+deliberately stops because the application builds as SSR.
 
 The legacy S3/CloudFront stack and **Deploy Static Site via AWS CDK** workflow
 are a static-site deployment path. The application now produces server output,
