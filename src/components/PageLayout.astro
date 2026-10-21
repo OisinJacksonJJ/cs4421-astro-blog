@@ -45,8 +45,8 @@ if (!sidebar) {
 		position: fixed;
 		top: 50%;
 		z-index: 0;
-		width: min(8vw, 110px);
-		max-height: 70vh;
+		width: min(10vw, 140px);
+		max-height: 125vh;
 		object-fit: contain;
 		transform: translateY(-50%);
 		pointer-events: none;
@@ -65,6 +65,17 @@ if (!sidebar) {
 	@media (min-width: 1200px) {
 		.page-layout {
 			width: min(1120px, calc(100vw - 260px));
+		}
+	}
+	@media (min-width: 1440px) {
+		.side-image {
+			width: min(200px, calc((100vw - 1152px) / 2 - 24px));
+		}
+		.side-image-left {
+			left: 24px;
+		}
+		.side-image-right {
+			right: 24px;
 		}
 	}
 	@media (max-width: 1199px) {

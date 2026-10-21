@@ -1,0 +1,15 @@
+node_modules
+dist
+.astro
+.git
+.github
+cdk
+docs
+coverage
+*.log
+README.md
+AGENTS.md
+CLAUDE.md
+.env
+.env.*
+!.env.example

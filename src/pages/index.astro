@@ -3,13 +3,13 @@ import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import PageLayout from '../components/PageLayout.astro';
-import { SITE_DESCRIPTION } from '../consts';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title="Welcome" description={SITE_DESCRIPTION} />
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
 		<Header />
@@ -20,7 +20,7 @@ import { SITE_DESCRIPTION } from '../consts';
 				Welcome to the "What is in a kickout?" blog, where I aim to discuss what makes a good kickout in professional wrestling where I will go into detail for one of wrestlings biggest kickouts in history, from the buildup in the weeks prior, what occured on the day and its significance to the viewer.
 			</p>
 			<p>
-			In order to see the narrative unfold, click into the "Blog" section, which you can see at the top of this page. Enjoy, and thanks for visiting!
+			In order to see the narrative unfold, click into the "Stories" section, which you can see at the top of this page. Enjoy, and thanks for visiting!
 			</p>
 			</section>
 		</PageLayout>

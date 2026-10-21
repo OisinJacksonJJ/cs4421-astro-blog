@@ -1,7 +1,7 @@
 {
   "name": "my-astro-blog",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
     "node": ">=22.12.0"
   },
@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint",
-    "test:unit": "vitest",
+    "test:unit": "vitest src",
+    "test:e2e": "npm run build && vitest --run tests/e2e/blog-navigation.test.ts",
     "check": "astro check"
   },
   "dependencies": {
@@ -20,8 +21,6 @@
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.5",
-    "aws-cdk-lib": "^2.271.0",
-    "constructs": "^10.8.1",
     "sharp": "^0.35.5",
     "zod": "^4.6.5"
   },
@@ -31,7 +30,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "aws-cdk": "^2.1143.0",
-    "eslint": "^10.11.0",
+    "eslint": "^10.12.0",
     "eslint-plugin-astro": "^3.2.1",
     "typescript": "^7.0.2",
     "vitest": "^5.0.2"

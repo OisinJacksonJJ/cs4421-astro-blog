@@ -8,7 +8,7 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://example.com',
+  site: 'https://whatsinakickout.com',
   output: 'server',
   
   integrations: [mdx(), sitemap()],
@@ -37,7 +37,6 @@ export default defineConfig({
           },
       },
 	],
-
   adapter: node({
     mode: 'standalone',
   }),

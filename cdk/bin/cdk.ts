@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib/core';
-import { StaticSiteStack } from '../lib/cdk-stack';
+import {
+  ExistingBucketDeploymentStack,
+  StaticSiteStack,
+} from '../lib/cdk-stack';
 
 const app = new cdk.App();
+const env = { account: '098689768734', region: 'us-east-1' };
+
 new StaticSiteStack(app, 'CdkStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
@@ -14,7 +19,17 @@ new StaticSiteStack(app, 'CdkStack', {
 
   /* Uncomment the next line if you know exactly what Account and Region you
    * want to deploy the stack to. */
-  env: { account: '098689768734', region: 'us-east-1' },
+  env,
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+const siteBucketName = app.node.tryGetContext('siteBucketName');
+if (typeof siteBucketName === 'string' && siteBucketName.length > 0) {
+  new ExistingBucketDeploymentStack(
+    app,
+    'ExistingBucketDeploymentStack',
+    siteBucketName,
+    { env },
+  );
+}

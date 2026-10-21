@@ -3,9 +3,14 @@ name: Continuous Integration
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
-  validate:
+  validate-site:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -16,9 +21,62 @@ jobs:
         with:
           node-version: 22.12.0
           cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            cdk/package-lock.json
 
       - name: Install Project Dependencies
         run: npm ci
 
-      - name: Validate and Build
+      - name: Check Astro and TypeScript
+        run: npm run check
+
+      - name: Run Unit Tests
+        run: npm run test:unit -- --run
+
+      - name: Build Production Site
         run: npm run build
+
+      - name: Run End-to-End Tests
+        run: npm run test:e2e
+
+      - name: Build Container Image
+        run: docker build --tag whats-in-a-kickout:ci .
+
+  validate-cdk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: cdk
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.12.0
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            cdk/package-lock.json
+
+      - name: Install Site Dependencies
+        run: npm ci
+        working-directory: .
+
+      - name: Build Site Assets for CDK Synthesis
+        run: npm run build
+        working-directory: .
+
+      - name: Install CDK Dependencies
+        run: npm ci
+
+      - name: Build CDK TypeScript
+        run: npm run build
+
+      - name: Run CDK Tests
+        run: npm test -- --runInBand
+
+      - name: Synthesize CloudFormation Templates
+        run: npx cdk synth
