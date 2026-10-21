@@ -69,11 +69,15 @@ npm run build
 node ./dist/server/entry.mjs
 ```
 
-The server uses port `4321` by default. The health endpoints are:
+The server uses port `4321` by default. The health and performance endpoints are:
 
 - `GET /api/health` — overall process health, including uptime.
 - `GET /api/live` — liveness check.
 - `GET /api/ready` — readiness check.
+- `GET /api/metrics` — uncached Node.js process metrics for uptime, memory
+  (bytes), CPU time (microseconds), and event-loop utilization (0–1). These
+  process-wide counters support local and production performance checks; they
+  are snapshots, not request-latency histograms.
 
 The server writes one JSON object per line to standard output for each HTTP
 request. Records include an ISO timestamp, a level (`info`, `warn`, or `error`),

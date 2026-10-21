@@ -202,4 +202,43 @@ describe('blog navigation E2E', () => {
 			target: 'A',
 		});
 	});
+
+	it('reports current process performance metrics without caching', async () => {
+		const response = await fetch(new URL('/api/metrics', baseUrl));
+		expect(response.status).toBe(200);
+		expect(response.headers.get('cache-control')).toBe('no-store');
+
+		const metrics: unknown = await response.json();
+		expect(metrics).toMatchObject({
+			status: 'ok',
+			memoryBytes: {
+				rss: expect.any(Number),
+				heapTotal: expect.any(Number),
+				heapUsed: expect.any(Number),
+				external: expect.any(Number),
+				arrayBuffers: expect.any(Number),
+			},
+			cpuMicroseconds: {
+				user: expect.any(Number),
+				system: expect.any(Number),
+			},
+			eventLoopUtilization: expect.any(Number),
+		});
+
+		const report = metrics as {
+			uptimeSeconds: number;
+			memoryBytes: Record<string, number>;
+			cpuMicroseconds: Record<string, number>;
+			eventLoopUtilization: number;
+		};
+		expect(report.uptimeSeconds).toBeGreaterThan(0);
+		for (const value of Object.values(report.memoryBytes)) {
+			expect(value).toBeGreaterThanOrEqual(0);
+		}
+		for (const value of Object.values(report.cpuMicroseconds)) {
+			expect(value).toBeGreaterThanOrEqual(0);
+		}
+		expect(report.eventLoopUtilization).toBeGreaterThanOrEqual(0);
+		expect(report.eventLoopUtilization).toBeLessThanOrEqual(1);
+	});
 });
