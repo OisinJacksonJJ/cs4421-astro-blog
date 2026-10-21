@@ -1,17 +1,17 @@
-// import * as cdk from 'aws-cdk-lib/core';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as Cdk from '../lib/cdk-stack';
+import * as cdk from 'aws-cdk-lib';
+import { Match, Template } from 'aws-cdk-lib/assertions';
+import { StaticSiteStack } from '../lib/cdk-stack';
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/cdk-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new Cdk.CdkStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+test('creates an S3 bucket and CloudFront distribution with origin access control', () => {
+  const app = new cdk.App();
+  const stack = new StaticSiteStack(app, 'TestStaticSite');
+  const template = Template.fromStack(stack);
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+  template.resourceCountIs('AWS::S3::Bucket', 1);
+  template.resourceCountIs('AWS::CloudFront::OriginAccessControl', 1);
+  template.hasResourceProperties('AWS::CloudFront::Distribution', {
+    DistributionConfig: {
+      DefaultRootObject: 'index.html',
+    },
+  });
 });

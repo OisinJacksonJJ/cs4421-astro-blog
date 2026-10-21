@@ -13,7 +13,8 @@ For local development, install:
 - Git, to clone the repository.
 
 No environment variables, AWS account, or external services are required to run
-the site locally.
+the site locally. AWS access is required only to provision or deploy the ECS
+service, or to run the optional manual image-publishing workflow.
 
 Docker is optional and is only needed to build and run the production container.
 AWS credentials are only needed for the manual GitHub Actions workflow that
@@ -49,8 +50,11 @@ Run these commands from the repository root:
 | `npm run preview` | Preview the built site locally. |
 | `node ./dist/server/entry.mjs` | Run the built standalone Node.js server. |
 
-Pull requests targeting `main` run the CI workflow, which installs dependencies
-with `npm ci` and verifies the production build with `npm run build`.
+Pull requests targeting `main` and pushes to `main` run the CI workflow. It
+checks, tests, builds the Astro site and container image, runs its end-to-end
+tests, and builds, tests, and synthesizes the AWS CDK project without requiring
+AWS credentials. The workflow validates CDK templates only; it does not deploy
+or create AWS resources.
 
 The unit tests check that each Markdown blog post contains at least 50
 alphabetic words in its article body, excluding frontmatter. The E2E test
@@ -65,11 +69,15 @@ npm run build
 node ./dist/server/entry.mjs
 ```
 
-The server uses port `4321` by default. The health endpoints are:
+The server uses port `4321` by default. The health and performance endpoints are:
 
 - `GET /api/health` — overall process health, including uptime.
 - `GET /api/live` — liveness check.
 - `GET /api/ready` — readiness check.
+- `GET /api/metrics` — uncached Node.js process metrics for uptime, memory
+  (bytes), CPU time (microseconds), and event-loop utilization (0–1). These
+  process-wide counters support local and production performance checks; they
+  are snapshots, not request-latency histograms.
 
 The server writes one JSON object per line to standard output for each HTTP
 request. Records include an ISO timestamp, a level (`info`, `warn`, or `error`),
@@ -91,7 +99,7 @@ src/
   styles/       Global styles
 public/         Static files served without processing
 docs/           Architecture decisions
-cdk/            Legacy AWS CDK infrastructure project
+cdk/            Legacy AWS CDK static-site infrastructure
 ```
 
 Add or edit blog content under `src/content/`. Pages and API routes live under
@@ -110,16 +118,14 @@ docker run --rm -p 4321:4321 whats-in-a-kickout
 The container listens on port `4321` and checks `/api/health` for its Docker
 health check.
 
-The **Build and push container to ECR** GitHub Actions workflow is manually
-triggered. It builds the image and pushes it to the `astro-blog` repository in
-Amazon ECR in `us-east-1`. Running this workflow requires the repository secrets
-`AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, with AWS permissions to verify
-the configured account and create or push to the ECR repository. It currently
-publishes the image with the `v1.0.0` tag. The workflow publishes an image;
-provisioning and running a container service is outside its scope.
+The **Build and push container to ECR** workflow remains manual. If run, it
+publishes an image to the `astro-blog` repository in Amazon ECR in `us-east-1`
+with the `v1.0.0` tag; ECR storage may incur charges. CI does not publish the
+image or deploy AWS services. The static-site CDK deployment workflow also
+remains manual and deliberately stops because the application builds as SSR.
 
-The `cdk/` directory and **Deploy Static Site via AWS CDK** workflow are a
-legacy static-site deployment path. The application now produces server output,
+The legacy S3/CloudFront stack and **Deploy Static Site via AWS CDK** workflow
+are a static-site deployment path. The application now produces server output,
 so that workflow deliberately stops rather than deploying the SSR build to S3.
 
 ## Further documentation
