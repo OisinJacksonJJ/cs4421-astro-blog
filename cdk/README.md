@@ -27,6 +27,10 @@ AWS** workflow builds and pushes a commit-tagged image, then deploys this ECS
 stack on pushes to `main`. Deploying the legacy static-site stacks is not part
 of CI.
 
+`cdk.context.json` is checked in with the account's Availability Zone lookup
+result so synthesis and CI do not need AWS credentials. Refresh this context
+with credentials if the target account or Region changes.
+
 ## ECS service
 
 `AstroBlogEcsStack` creates a Fargate service that runs the `astro-blog` ECR
