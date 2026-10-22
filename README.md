@@ -64,6 +64,14 @@ related CloudFormation resources. The CDK environment must be bootstrapped once
 before its first deployment. Deploying the service creates billable AWS
 resources.
 
+The separate **Deploy Static Site via AWS CDK** workflow also runs on pushes
+to `main`. It builds the prerendered site with `ASTRO_STATIC_BUILD=true`,
+deploys the static files to the CDK-managed private S3 bucket, and invalidates
+the associated CloudFront distribution. Its HTTPS CloudFront URL is available
+as `SiteDistributionDomainName` in the `CdkStack` CloudFormation outputs. This
+is a static snapshot of the public pages; dynamic API routes are served by ECS,
+not by this CloudFront/S3 site.
+
 The unit tests check that each Markdown blog post contains at least 50
 alphabetic words in its article body, excluding frontmatter. The E2E test
 builds the site, starts the standalone server, checks that each post is listed
@@ -107,7 +115,7 @@ src/
   styles/       Global styles
 public/         Static files served without processing
 docs/           Architecture decisions
-cdk/            Legacy AWS CDK static-site infrastructure
+cdk/            AWS CDK static-site and ECS infrastructure
 ```
 
 Add or edit blog content under `src/content/`. Pages and API routes live under
@@ -127,12 +135,9 @@ The container listens on port `4321` and checks `/api/health` for its Docker
 health check.
 
 ECR stores an image for each successful push to `main`; storage may incur
-charges. The static-site CDK deployment workflow remains manual and
-deliberately stops because the application builds as SSR.
-
-The legacy S3/CloudFront stack and **Deploy Static Site via AWS CDK** workflow
-are a static-site deployment path. The application now produces server output,
-so that workflow deliberately stops rather than deploying the SSR build to S3.
+charges. The static-site workflow uses Astro's static output mode to publish
+prerendered pages separately. CloudFront serves those static pages; ECS serves
+the dynamic application and API routes.
 
 ## Further documentation
 

@@ -9,9 +9,20 @@ test('creates an S3 bucket and CloudFront distribution with origin access contro
 
   template.resourceCountIs('AWS::S3::Bucket', 1);
   template.resourceCountIs('AWS::CloudFront::OriginAccessControl', 1);
+  template.hasResourceProperties('AWS::CloudFront::Function', {
+    FunctionCode: Match.stringLikeRegexp('index\\.html'),
+    FunctionConfig: {
+      Runtime: 'cloudfront-js-2.0',
+    },
+  });
   template.hasResourceProperties('AWS::CloudFront::Distribution', {
     DistributionConfig: {
       DefaultRootObject: 'index.html',
+      DefaultCacheBehavior: Match.objectLike({
+        FunctionAssociations: Match.arrayWith([
+          Match.objectLike({ EventType: 'viewer-request' }),
+        ]),
+      }),
     },
   });
 });
