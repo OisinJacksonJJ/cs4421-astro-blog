@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib/core';
 import {
+  EcsServiceStack,
   ExistingBucketDeploymentStack,
   StaticSiteStack,
 } from '../lib/cdk-stack';
@@ -23,6 +24,13 @@ new StaticSiteStack(app, 'CdkStack', {
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
 });
+
+const imageTag = app.node.tryGetContext('imageTag') ?? 'v1.0.0';
+if (typeof imageTag !== 'string' || imageTag.length === 0) {
+  throw new Error('The imageTag CDK context value must be a non-empty string.');
+}
+
+new EcsServiceStack(app, 'AstroBlogEcsStack', imageTag, { env });
 
 const siteBucketName = app.node.tryGetContext('siteBucketName');
 if (typeof siteBucketName === 'string' && siteBucketName.length > 0) {

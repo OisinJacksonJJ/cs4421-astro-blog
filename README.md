@@ -51,13 +51,18 @@ Run these commands from the repository root:
 | `node ./dist/server/entry.mjs` | Run the built standalone Node.js server. |
 
 Pull requests targeting `main` and pushes to `main` run the CI workflow. It
-checks, tests, builds the Astro site and container image, runs its end-to-end
-tests, and builds, tests, and synthesizes the AWS CDK project. After all checks
-pass on a push to `main`, the workflow authenticates to AWS, publishes the
-container image to the `astro-blog` repository in Amazon ECR in `us-east-1`,
-and tags it with the commit SHA. Pull requests do not publish images or require
-AWS credentials. Publishing the image does not deploy or update a running AWS
-service.
+checks and tests the Astro site, runs end-to-end tests, and builds, tests, and
+synthesizes the AWS CDK project. The separate **Deploy Container to AWS**
+workflow runs on pushes to `main`: it runs the unit tests, builds the container,
+publishes it to the `astro-blog` repository in Amazon ECR in `us-east-1` tagged
+with the commit SHA, then updates the ECS Fargate service to that image. Pull
+requests do not publish images or deploy the service.
+
+The deploy workflow requires the AWS credentials secrets used by CI and
+permissions to update the CDK-managed ECS, load balancer, networking, and
+related CloudFormation resources. The CDK environment must be bootstrapped once
+before its first deployment. Deploying the service creates billable AWS
+resources.
 
 The unit tests check that each Markdown blog post contains at least 50
 alphabetic words in its article body, excluding frontmatter. The E2E test

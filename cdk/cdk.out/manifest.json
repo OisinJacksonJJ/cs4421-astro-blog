@@ -18,7 +18,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::098689768734:role/cdk-hnb659fds-deploy-role-098689768734-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::098689768734:role/cdk-hnb659fds-cfn-exec-role-098689768734-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-098689768734-us-east-1/93570cf84acd543e8c235f1418180e4644fa3a2e4442231839045f68ae9814b4.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-098689768734-us-east-1/fa872c9989687763b25f1fd4a4d2534a2b65c31b7086964c7f05d39adec990cd.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -36,28 +36,28 @@
       "additionalMetadataFile": "CdkStack.metadata.json",
       "displayName": "CdkStack"
     },
-    "ExistingBucketDeploymentStack.assets": {
+    "AstroBlogEcsStack.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "ExistingBucketDeploymentStack.assets.json",
+        "file": "AstroBlogEcsStack.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "ExistingBucketDeploymentStack": {
+    "AstroBlogEcsStack": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://098689768734/us-east-1",
       "properties": {
-        "templateFile": "ExistingBucketDeploymentStack.template.json",
+        "templateFile": "AstroBlogEcsStack.template.json",
         "terminationProtection": false,
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::098689768734:role/cdk-hnb659fds-deploy-role-098689768734-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::098689768734:role/cdk-hnb659fds-cfn-exec-role-098689768734-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-098689768734-us-east-1/816bc3b6e3c1c9404ca77162825fc8b15e8301cf9dbe68437cffbdcfa3ae992b.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-098689768734-us-east-1/c66ec4094a39459d9964bc7a1befcba1776db53a53fea6bd29c1205c03ab885a.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "ExistingBucketDeploymentStack.assets"
+          "AstroBlogEcsStack.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::098689768734:role/cdk-hnb659fds-lookup-role-098689768734-us-east-1",
@@ -66,10 +66,10 @@
         }
       },
       "dependencies": [
-        "ExistingBucketDeploymentStack.assets"
+        "AstroBlogEcsStack.assets"
       ],
-      "additionalMetadataFile": "ExistingBucketDeploymentStack.metadata.json",
-      "displayName": "ExistingBucketDeploymentStack"
+      "additionalMetadataFile": "AstroBlogEcsStack.metadata.json",
+      "displayName": "AstroBlogEcsStack"
     },
     "Tree": {
       "type": "cdk:tree",
