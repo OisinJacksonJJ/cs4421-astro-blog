@@ -9,5 +9,5 @@ export const GET: APIRoute = () =>
       uptimeSeconds: process.uptime(),
       timestamp: new Date().toISOString(),
     },
-    { status: 200 },
+    { status: 500 },
   );
