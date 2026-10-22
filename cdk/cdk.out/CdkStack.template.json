@@ -257,6 +257,21 @@
     "aws:asset:property": "Code"
    }
   },
+  "DirectoryIndexFunction463CBF5B": {
+   "Type": "AWS::CloudFront::Function",
+   "Properties": {
+    "AutoPublish": true,
+    "FunctionCode": "\nfunction handler(event) {\n  var request = event.request;\n  var uri = request.uri;\n  if (uri.endsWith('/')) {\n    request.uri = uri + 'index.html';\n  } else if (!uri.substring(uri.lastIndexOf('/') + 1).includes('.')) {\n    request.uri = uri + '/index.html';\n  }\n  return request;\n}\n        ",
+    "FunctionConfig": {
+     "Comment": "us-east-1CdkStackDirectoryIndexFunctionF3513355",
+     "Runtime": "cloudfront-js-2.0"
+    },
+    "Name": "us-east-1CdkStackDirectoryIndexFunctionF3513355"
+   },
+   "Metadata": {
+    "aws:cdk:path": "CdkStack/DirectoryIndexFunction/Resource"
+   }
+  },
   "SiteDistributionOrigin1S3OriginAccessControl7D960FE6": {
    "Type": "AWS::CloudFront::OriginAccessControl",
    "Properties": {
@@ -278,6 +293,17 @@
      "DefaultCacheBehavior": {
       "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
       "Compress": true,
+      "FunctionAssociations": [
+       {
+        "EventType": "viewer-request",
+        "FunctionARN": {
+         "Fn::GetAtt": [
+          "DirectoryIndexFunction463CBF5B",
+          "FunctionARN"
+         ]
+        }
+       }
+      ],
       "TargetOriginId": "CdkStackSiteDistributionOrigin136178A01",
       "ViewerProtocolPolicy": "redirect-to-https"
      },
@@ -340,7 +366,7 @@
      "cdk-hnb659fds-assets-098689768734-us-east-1"
     ],
     "SourceObjectKeys": [
-     "a00e8ba8cc7bebf77feedb8f939113b8a019e2482bd0384435576010ef5931db.zip"
+     "87a373a0ad8de3afd31ee0e495f4aaabf59448f3de3d1863517df7e35e60f204.zip"
     ],
     "DestinationBucketName": {
      "Ref": "SiteBucket397A1860"
@@ -538,7 +564,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/9VUwY7bNhD9lvBY0GqzBtrCN603DQpsEsMKejEMgybHNncpjkAO7aqC/r0gJWrVJA2C3HIwZM0bct57mpm74u6318Uvr8TNL6R6Xhh9LLqKhHzm4uYPnV8W3X2Qz0C7jh0NyudNOBotSynBe7ZiPzHOwErXNqTRshWrlod35fvy7ZuHhJzQSaiqR7YiF4CzKziv0YLKAQc1XoXZoNGyZSumwJPDlnEmAuEDGCD4cHwCSX440u/5+mQnUrX+W8e6cwWRul8WCfLFkFp+dlu/5wM01I4C02tSNa8y4d9aazhQkSCowc5L3QsPu2Ta8Nv3XBoM6uTQUtE9aE9OH0P0ctcxBScRDN3DRVw1OrbqGDp9Thzi+auGG7iNQ0KJLxY6UNqBpAXh4kLUeNbzfNcWkQYDssxq+SHdOXzSNVpyaCLH5MAXsBieE+25Xx46BY3BNsodTXiYAlx4D+SLMj56bkR9VKLo1if7KFpwfw0twSttzwYI7R/BytGBELQaxQonL5pAUnAwhkw87tlqYMvAXrVDG0tOCbHUJrgGfT5EugYMOcOhyUANNbq20v/kADQXqMEJUxE6cYYZdG3ky78qHC1QngYPMjhN7VuHocnBkzbgW09QZ2Z4Tgnjq0SVr74Iqwy4zC/YSHj4WLxjQql3QEIJEoNuHmdi/2UoNdiez/z8HhN/eMPezCW9GDOAj3P5w9Rnv3quRV10WzQQrfM+1KDu2ziGjdNW6kaYUkoMk1VDTjxQynEfRhasFlacQaUJ1RCrdf+JtaUbczOtj7jJJfJc77oRJRLy8qc12sKETYq+Cn793v9Hky1RFh93YVSbi33EbeqJTzh8HlZqthLnZb81nGgMDHpu8OyL7nFsi103dch7kT9/ys8Zfc/XwRPWW/AYnJz28CBuDH6Ss3F41Qpc3Ns87a+KxFnb87jFDml6DuLmpdFFefNro1NHRb5pfwZqAvXcooLiyf98vfu1+L14/erJa70Ye7XYDs9/ARMd6ACNBwAA"
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/9VVwY7bNhD9lvBY0GqzBtrCN603DQpsEsNa9GIYC5oc29ylOCo5tKsK+veAlKhVN2kQ9NaDIXvekPPe08z4prj55W3x0xtx9QupnhdGH4quIiGfubj6x84vi+42yGegXccOBuXzJhyMlqWU4D1bsR8YZ2ClaxvSaNmKVcvHD+XH8v27u4Qc0Umoqnu2IheAsws4r9GCygEHNV6E2aDRsmUrpsCTw5ZxJgLhHRgg+HR4Akl+ONLv+fpoJ1K1/kvHunMFkbpfFgnyxZBafnFbv+cDNNSOAtPPpGpeZcK/t9ZwoCJBUIOdl7oVHnbJtOGz77k0GNTRoaWi+y1YGX3cdcwFS7qG0WKJCma8ch6/056cPoTxkIKjCIZu4SwuGh1bdQydPiXS8ZqLhiu4jUNCiS+eO1DagaQF4eJM1HjG2XEsUXqPUov41bPVrpuA/PIvYOmhbSK94fqFgz8DeGL9vueZ0haRBuOzjGr5KVEbWmmNlhya6E1S+BUshud6e+6Xj52CxmAbbR7Nv5sCXHgP5IsyPnpuRH1QoujWR3svWnB/DK3IK21PBgjtzP0QtBoFCifPmkBScPltmHg8upHYMrAX7dDGklNCLLUJrkGfD8W3iSFnODQZqKFG11b67xyA5gw1OGEqQidOMIMujXz5VoWDBcpT6EEGp6l97zA0OXjUBnzrCerMDE8p4XVfcXYWVhlwmd+s/XreMaHUByChBIlBN4+zuP86lBp7z2d+/hcT//eGvZtLejFmAO/n8v851T3Xoi66LRqI1nkfalC3bZzmxmkrdSNMKSWGyaohJx4oX2az56wWVpxApUHXMMzvPNaWbszNtB5wk0vk9bDrRpRIyPPv1mgLEzYp+ib47Xv/HU22RFl83MFRbS72gNvUE684fBlWaraK52W/N5xoDAx6bvDki+5+bItdN3XIR1HPd3TO6Hu+Dp6w3oLH4OS0/wdxY/BVzsbhRStw8f+Cp/1VkThpexq32GOankdx9dLoorz6tdGpoyLftD8DNYF6blFB8eR/vNz8XPxavH3z5LVejL1abIfnZzQ1oe4FCAAA"
    },
    "Metadata": {
     "aws:cdk:path": "CdkStack/CDKMetadata/Default"

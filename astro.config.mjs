@@ -9,7 +9,7 @@ import node from '@astrojs/node';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://whatsinakickout.com',
-  output: 'server',
+  output: process.env.ASTRO_STATIC_BUILD === 'true' ? 'static' : 'server',
   
   integrations: [mdx(), sitemap()],
 

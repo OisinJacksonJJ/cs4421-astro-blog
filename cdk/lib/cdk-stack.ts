@@ -21,16 +21,46 @@ export class StaticSiteStack extends cdk.Stack {
       autoDeleteObjects: true,
     });
 
+    const directoryIndexFunction = new cloudfront.Function(
+      this,
+      'DirectoryIndexFunction',
+      {
+        runtime: cloudfront.FunctionRuntime.JS_2_0,
+        code: cloudfront.FunctionCode.fromInline(`
+function handler(event) {
+  var request = event.request;
+  var uri = request.uri;
+  if (uri.endsWith('/')) {
+    request.uri = uri + 'index.html';
+  } else if (!uri.substring(uri.lastIndexOf('/') + 1).includes('.')) {
+    request.uri = uri + '/index.html';
+  }
+  return request;
+}
+        `),
+      },
+    );
+
     const distribution = new cloudfront.Distribution(this, 'SiteDistribution', {
       defaultBehavior: {
         origin: origins.S3BucketOrigin.withOriginAccessControl(siteBucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        functionAssociations: [
+          {
+            function: directoryIndexFunction,
+            eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
+          },
+        ],
       },
       defaultRootObject: 'index.html',
     });
 
     new s3deploy.BucketDeployment(this, 'DeploySite', {
-      sources: [s3deploy.Source.asset('./../dist')],
+      sources: [
+        s3deploy.Source.asset('./../dist/client', {
+          exclude: ['api/**'],
+        }),
+      ],
       destinationBucket: siteBucket,
       distribution,
       distributionPaths: ['/*'],
