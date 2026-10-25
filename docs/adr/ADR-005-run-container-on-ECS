@@ -1,0 +1,20 @@
+# ADR-005: Decision to Run Container on ECS
+## Status: Accepted (Date: 2026-10-20)
+## Context
+The Astro application is packaged as a Docker container, but running it on
+developers' local devices does not make the server available to site visitors.
+The existing S3 and CloudFront setup can serve static files but cannot run the
+server-rendered application. Publishing the container image to Amazon ECR
+stores it, but a separate compute service is needed to run it.
+
+## Decision
+Run the application container as an Amazon ECS service using AWS Fargate.
+Store the image in Amazon ECR and expose the service through an Application
+Load Balancer. Provision the service and its supporting infrastructure with
+AWS CDK.
+
+## Consequences
+- Positive: Fargate runs the container without requiring us to manage the
+  underlying EC2 instances.
+- Negative: The Fargate service and Application Load Balancer incur ongoing
+  AWS charges.
