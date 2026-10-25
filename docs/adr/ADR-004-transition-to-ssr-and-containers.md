@@ -1,4 +1,4 @@
-# ADR-001: Transition from Static Site to Containerized SSR Runtime
+# ADR-004: Transition from Static Site to Containerized SSR Runtime
 ## Status: Accepted (Date: 2026-10-5)
 ## Context
 Our platform requires dynamic API endpoints (/api/health, /api/feedback).
